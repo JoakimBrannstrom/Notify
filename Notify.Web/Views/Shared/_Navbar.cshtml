@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@using Notify.Web.Models
+@using WebGrease.Css.Extensions
+<div class="container">
 	<div class="navbar navbar-default" role="navigation">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -7,33 +9,44 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Project name</a>
+			<a class="navbar-brand" href="#">Notifications</a>
 		</div>
 
-		<div class="navbar-collapse collapse">
-			<ul class="nav navbar-nav">
-				<li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
-				<li>@Html.ActionLink("About", "About", "Home")</li>
-				<li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-				<!--
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li class="dropdown-header">Nav header</li>
-						<li><a href="#">Separated link</a></li>
-						<li><a href="#">One more separated link</a></li>
-					</ul>
-				</li>
-				-->
+		<div class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<span class="label label-info">7 new notifications</span>
+			</a>
+			<ul class="dropdown-menu">
+				<li class="dropdown-header">Today</li>
+				<li><a href="#"><span class="label label-success">User created</span></a></li>
+				<li class="divider"></li>
+				<li class="dropdown-header">Yesterday</li>
+				<li><a href="#"><span class="label label-success">Group created</span></a></li>
+				<li><a href="#"><span class="label label-success">Group members added</span></a></li>
+				<li class="divider"></li>
+				<li class="dropdown-header">Last week</li>
+				<li><a href="#"><span class="label label-danger">Could not send email</span></a></li>
+				<li><a href="#"><span class="label label-warning">Your email has not been confirmed</span></a></li>
+				<li><a href="#"><span class="label label-info">Please update your user information</span></a></li>
+				<li><a href="#"><span class="label label-success">First visit welcome!</span></a></li>
 			</ul>
+		</div>
 
-			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="#">No new notifications</a></li>
-			</ul>
+		@{
+			var controller = ViewContext.RouteData.GetRequiredString("controller");
+			var action = ViewContext.RouteData.GetRequiredString("action");
+
+			var menuItems = new List<MenuItem>
+							{
+								new MenuItem { Name = "Start", Controller = "home", Action = "index" },
+								new MenuItem { Name = "About", Controller = "home", Action = "about" },
+								new MenuItem { Name = "Contact", Controller = "home", Action = "contact" }
+							};
+			var selectedItems = menuItems.Where(i => i.Match(controller, action));
+			selectedItems.ForEach(i => i.Active = true);
+		}
+		<div class="navbar-collapse collapse">
+			@Html.DisplayFor(i => menuItems, "MenuItems")
 		</div>
 	</div>
 </div>

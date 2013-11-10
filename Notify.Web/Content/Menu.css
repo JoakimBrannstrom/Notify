@@ -1,3 +1,25 @@
 ﻿.menu {
 	border: 1px solid #ccc;
 }
+
+.dropdown-menu {
+	background-color: #0D747C;
+	background-color: #108A93;
+	background-color: #18CBD8;
+	background-color: #911821;
+	background-color: #D92432;
+
+	background-color: #0D747C;
+	border: 1px solid #CCCCCC;
+}
+
+.navbar .dropdown {
+	float: right;
+	margin-right: 15px;
+}
+
+.navbar .dropdown > a {
+	padding-top: 19.5px;
+	padding-bottom: 19.5px;
+	display: inline-block;
+}

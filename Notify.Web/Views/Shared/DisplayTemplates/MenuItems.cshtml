@@ -1,0 +1,13 @@
+﻿@model List<Notify.Web.Models.MenuItem>
+
+<ul class="nav navbar-nav">
+	@foreach (var item in Model)
+	{
+		var active = new MvcHtmlString(string.Empty);
+		if (item.Active)
+		{
+			active = new MvcHtmlString("class=\"active\"");
+		}
+		<li @active>@Html.DisplayFor(_ => item)</li>
+	}
+</ul>

@@ -8,9 +8,9 @@ namespace Notify.Web.Startup
 		public static void RegisterBundles(BundleCollection bundles)
 		{
 			bundles
-			.Add(new StyleBundle("~/Content/css")
-						.Include("~/Content/site.css",
-								"~/Content/menu.css"));
+			.Add(new StyleBundle("~/content/css")
+						.Include("~/content/site.css",
+								"~/content/menu.css"));
 		}
 	}
 }

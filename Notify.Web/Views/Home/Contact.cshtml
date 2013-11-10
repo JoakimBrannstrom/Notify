@@ -2,49 +2,119 @@
     ViewBag.Title = "Contact";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>@ViewBag.Message</h2>
-</hgroup>
+@section scripts {
+	<script src="@Url.Content("~/scripts/XSockets.fallback.latest.js")"></script>
+	<script src="@Url.Content("~/scripts/XSockets.latest.js")"></script>
+	<script src="@Url.Content("~/scripts/knockout-2.2.0.js")"></script>
+	<script src="@Url.Content("~/scripts/notifications.js")"></script>
 
-<section class="contact">
-    <header>
-        <h3>Phone</h3>
-    </header>
-    <p>
-        <span class="label">Main:</span>
-        <span>425.555.0100</span>
-    </p>
-    <p>
-        <span class="label">After Hours:</span>
-        <span>425.555.0199</span>
-    </p>
-</section>
+	<script type="text/javascript">
+		//ViewModel
+		var vm = null;
 
-<section class="contact">
-    <header>
-        <h3>Email</h3>
-    </header>
-    <p>
-        <span class="label">Support:</span>
-        <span><a href="mailto:Support@example.com">Support@example.com</a></span>
-    </p>
-    <p>
-        <span class="label">Marketing:</span>
-        <span><a href="mailto:Marketing@example.com">Marketing@example.com</a></span>
-    </p>
-    <p>
-        <span class="label">General:</span>
-        <span><a href="mailto:General@example.com">General@example.com</a></span>
-    </p>
-</section>
+		//Connection to XSockets
+		var conn = null;
 
-<section class="contact">
-    <header>
-        <h3>Address</h3>
-    </header>
-    <p>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399
-    </p>
-</section>
+		//Shortcut to event constants
+		var evt = XSockets.Events;
+
+		$(function () {
+			// Create viewmodel
+			vm = new NotificationViewModel();
+
+			var jsonDateRe = /^\/Date\((-?\d+)(\+|-)?(\d+)?\)\/$/;
+			var parseJsonDateString = function (dateCandidate) {
+				var arr = dateCandidate && jsonDateRe.exec(dateCandidate);
+				if (arr) {
+					return new Date(parseInt(arr[1]));
+				}
+				return dateCandidate;
+			};
+
+			ko.bindingHandlers.date = {
+				init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+					try {
+						var jsonDate = ko.utils.unwrapObservable(valueAccessor());
+						var dateValue = parseJsonDateString(jsonDate);
+						var strDate = dateValue.getFullYear() + '-' + (dateValue.getMonth() + 1) + '-' + dateValue.getDate();
+						var strTime = dateValue.getHours() + ':' + dateValue.getMinutes() + ':' + dateValue.getSeconds();
+						//element.setAttribute('value', strDate);
+						$(element).html(strDate + ' ' + strTime);
+					}
+					catch (exc) {
+					}
+
+					$(element).change(function () {
+						var valAcc = valueAccessor;
+						valAcc(element.getAttribute('value'));
+					});
+				},
+				update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+					var valAcc = valueAccessor;
+					valAcc(element.getAttribute('value'));
+				}
+			};
+
+			// Apply knockout bindings
+			ko.applyBindings(vm);
+
+			// Open connection to XSockets
+			conn = new XSockets.WebSocket('ws://127.0.0.1:4502/Notification');
+
+			// On open, do some bindings
+			conn.on(evt.open, function () {
+				/*
+				// Listen for all types (published at bottom of open event)
+				conn.on('allTypes', function (types) {
+					types.forEach(function (type) {
+						vm.Add(type);
+					});
+				});
+				*/
+
+				//When a tick arrives, update or add the stock
+				conn.on('notify', function (notification) {
+					vm.Add(notification);
+				});
+			});
+		});
+
+		// Add or remove the stock from this clients subscriptions
+		var toggleNotification = function (notification) {
+			/*
+			if (notification.Active()) {
+				notification.Active(false);
+				vm.NotificationSubscriptions.remove(notification.Symbol);
+			}
+			else {
+				notification.Active(true);
+				vm.NotificationSubscriptions.push(notification.Symbol);
+			}
+			*/
+
+			// Tell XSockets about the change
+			// Note that this will update the actual property on the controller without any method decalred being called
+			conn.publish('set_MyTypeOfNotifications', vm.NotificationSubscriptions());
+		};
+
+	</script>
+}
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Type</th>
+			<th>Title</th>
+			<th>Message</th>
+			<th>UtcTimestamp</th>
+		</tr>
+	</thead>
+	<tbody data-bind="foreach: Notifications">
+		<tr>
+			<td data-bind="text: Type"></td>
+			<td data-bind="text: Title"></td>
+			<td data-bind="text: Message"></td>
+			<td data-bind="date: UtcTimestamp"></td>
+		</tr>
+	</tbody>
+</table>

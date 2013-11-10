@@ -157,7 +157,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\EventGeneratorController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Models\MenuItem.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificatonsTicker.cs" />
     <Compile Include="Startup\AuthConfig.cs" />
     <Compile Include="Startup\BundleConfig.cs" />
     <Compile Include="Startup\FilterConfig.cs" />
@@ -179,6 +183,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\Notifications.js" />
     <Content Include="Scripts\XSockets.fallback.latest.js" />
     <Content Include="Scripts\XSockets.fallback.latest.min.js" />
     <Content Include="Scripts\XSockets.latest.js" />

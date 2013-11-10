@@ -3,100 +3,24 @@
 }
 
 @section scripts {
-	<script src="@Url.Content("~/scripts/XSockets.fallback.latest.js")"></script>
-	<script src="@Url.Content("~/scripts/XSockets.latest.js")"></script>
-	<script src="@Url.Content("~/scripts/knockout-2.2.0.js")"></script>
-	<script src="@Url.Content("~/scripts/notifications.js")"></script>
-
 	<script type="text/javascript">
-		//ViewModel
-		var vm = null;
-
-		//Connection to XSockets
-		var conn = null;
-
-		//Shortcut to event constants
-		var evt = XSockets.Events;
+		var viewModel = null;
+		var webSocket = null;
 
 		$(function () {
-			// Create viewmodel
-			vm = new NotificationViewModel();
+			viewModel = new NotificationViewModel(10);
 
-			var jsonDateRe = /^\/Date\((-?\d+)(\+|-)?(\d+)?\)\/$/;
-			var parseJsonDateString = function (dateCandidate) {
-				var arr = dateCandidate && jsonDateRe.exec(dateCandidate);
-				if (arr) {
-					return new Date(parseInt(arr[1]));
-				}
-				return dateCandidate;
-			};
+			ko.applyBindings(viewModel);
 
-			ko.bindingHandlers.date = {
-				init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-					try {
-						var jsonDate = ko.utils.unwrapObservable(valueAccessor());
-						var dateValue = parseJsonDateString(jsonDate);
-						var strDate = dateValue.getFullYear() + '-' + (dateValue.getMonth() + 1) + '-' + dateValue.getDate();
-						var strTime = dateValue.getHours() + ':' + dateValue.getMinutes() + ':' + dateValue.getSeconds();
-						//element.setAttribute('value', strDate);
-						$(element).html(strDate + ' ' + strTime);
-					}
-					catch (exc) {
-					}
+			webSocket = new XSockets.WebSocket('ws://127.0.0.1:4502/Notification');
 
-					$(element).change(function () {
-						var valAcc = valueAccessor;
-						valAcc(element.getAttribute('value'));
-					});
-				},
-				update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-					var valAcc = valueAccessor;
-					valAcc(element.getAttribute('value'));
-				}
-			};
-
-			// Apply knockout bindings
-			ko.applyBindings(vm);
-
-			// Open connection to XSockets
-			conn = new XSockets.WebSocket('ws://127.0.0.1:4502/Notification');
-
-			// On open, do some bindings
-			conn.on(evt.open, function () {
-				/*
-				// Listen for all types (published at bottom of open event)
-				conn.on('allTypes', function (types) {
-					types.forEach(function (type) {
-						vm.Add(type);
-					});
-				});
-				*/
-
-				//When a tick arrives, update or add the stock
-				conn.on('notify', function (notification) {
-					vm.Add(notification);
+			webSocket.on(XSockets.Events.open, function () {
+				// When a notification arrives, add it to the viewModel
+				webSocket.on('notify', function (notification) {
+					viewModel.Add(notification);
 				});
 			});
 		});
-
-		// Add or remove the stock from this clients subscriptions
-		var toggleNotification = function (notification) {
-			/*
-			if (notification.Active()) {
-				notification.Active(false);
-				vm.NotificationSubscriptions.remove(notification.Symbol);
-			}
-			else {
-				notification.Active(true);
-				vm.NotificationSubscriptions.push(notification.Symbol);
-			}
-			*/
-
-			// Tell XSockets about the change
-			// Note that this will update the actual property on the controller without any method decalred being called
-			conn.publish('set_MyTypeOfNotifications', vm.NotificationSubscriptions());
-		};
-
 	</script>
 }
 

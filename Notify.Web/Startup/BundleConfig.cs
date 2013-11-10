@@ -11,6 +11,16 @@ namespace Notify.Web.Startup
 			.Add(new StyleBundle("~/content/css")
 						.Include("~/content/site.css",
 								"~/content/menu.css"));
+
+			bundles
+			.Add(new ScriptBundle("~/scripts/notifications")
+						.Include("~/scripts/XSockets.fallback.latest.js",
+								"~/scripts/XSockets.latest.js",
+								"~/scripts/knockout-2.2.0.js",
+								"~/scripts/knockout.extensions.js",
+								"~/scripts/notifications.js"));
+
+			// BundleTable.EnableOptimizations = true;
 		}
 	}
 }

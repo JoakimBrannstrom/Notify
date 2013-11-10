@@ -6,7 +6,7 @@ namespace Notify.Web.Models
 {
 	public class NotificatonsTicker
 	{
-		private static int _counter = 0;
+		private static int _counter;
 		private readonly object _updateNotificationsLock = new object();
 
 		private readonly Action<Notification> _onTick;

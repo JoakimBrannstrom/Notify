@@ -2,51 +2,55 @@
 @using WebGrease.Css.Extensions
 <div class="container">
 	<div class="navbar navbar-default" role="navigation">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">Notifications</a>
+		<div class="col-md-8">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Notifications</a>
+			</div>
+
+			@{
+				var controller = ViewContext.RouteData.GetRequiredString("controller");
+				var action = ViewContext.RouteData.GetRequiredString("action");
+
+				var menuItems = new List<MenuItem>
+				{
+					new MenuItem { Name = "Start", Controller = "home", Action = "index" },
+					new MenuItem { Name = "About", Controller = "home", Action = "about" },
+					new MenuItem { Name = "Contact", Controller = "home", Action = "contact" }
+				};
+				var selectedItems = menuItems.Where(i => i.Match(controller, action));
+				selectedItems.ForEach(i => i.Active = true);
+			}
+			<div class="navbar-collapse collapse">
+				@Html.DisplayFor(i => menuItems, "MenuItems")
+			</div>
 		</div>
-
-		<div class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-				<span class="label label-info">7 new notifications</span>
-			</a>
-			<ul class="dropdown-menu">
-				<li class="dropdown-header">Today</li>
-				<li><a href="#"><span class="label label-success">User created</span></a></li>
-				<li class="divider"></li>
-				<li class="dropdown-header">Yesterday</li>
-				<li><a href="#"><span class="label label-success">Group created</span></a></li>
-				<li><a href="#"><span class="label label-success">Group members added</span></a></li>
-				<li class="divider"></li>
-				<li class="dropdown-header">Last week</li>
-				<li><a href="#"><span class="label label-danger">Could not send email</span></a></li>
-				<li><a href="#"><span class="label label-warning">Your email has not been confirmed</span></a></li>
-				<li><a href="#"><span class="label label-info">Please update your user information</span></a></li>
-				<li><a href="#"><span class="label label-success">First visit welcome!</span></a></li>
-			</ul>
-		</div>
-
-		@{
-			var controller = ViewContext.RouteData.GetRequiredString("controller");
-			var action = ViewContext.RouteData.GetRequiredString("action");
-
-			var menuItems = new List<MenuItem>
-							{
-								new MenuItem { Name = "Start", Controller = "home", Action = "index" },
-								new MenuItem { Name = "About", Controller = "home", Action = "about" },
-								new MenuItem { Name = "Contact", Controller = "home", Action = "contact" }
-							};
-			var selectedItems = menuItems.Where(i => i.Match(controller, action));
-			selectedItems.ForEach(i => i.Active = true);
-		}
-		<div class="navbar-collapse collapse">
-			@Html.DisplayFor(i => menuItems, "MenuItems")
+	
+		<div class="col-md-4">
+			<div class="dropdown pull-right">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<span class="label label-info">7 new notifications</span>
+				</a>
+				<ul class="dropdown-menu">
+					<li class="dropdown-header">Today</li>
+					<li><a href="#"><span class="label label-success">User created</span></a></li>
+					<li class="divider"></li>
+					<li class="dropdown-header">Yesterday</li>
+					<li><a href="#"><span class="label label-success">Group created</span></a></li>
+					<li><a href="#"><span class="label label-success">Group members added</span></a></li>
+					<li class="divider"></li>
+					<li class="dropdown-header">Last week</li>
+					<li><a href="#"><span class="label label-danger">Could not send email</span></a></li>
+					<li><a href="#"><span class="label label-warning">Your email has not been confirmed</span></a></li>
+					<li><a href="#"><span class="label label-info">Please update your user information</span></a></li>
+					<li><a href="#"><span class="label label-success">First visit welcome!</span></a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>

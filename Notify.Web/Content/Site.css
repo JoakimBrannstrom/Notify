@@ -1,0 +1,14 @@
+﻿.panel {
+	border: 1px solid #ccc;
+}
+
+.panel-heading h1,
+.panel-heading h2,
+.panel-heading h3,
+.panel p,
+.jumbotron h1,
+.jumbotron h2,
+.jumbotron h3,
+.jumbotron p {
+	margin: 0;
+}

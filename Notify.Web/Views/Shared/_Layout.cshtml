@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>@ViewBag.Title</title>
+
+	<link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+
+	@Styles.Render("~/Content/normalize.css")
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<!--
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+	-->
+	@Styles.Render("~/Content/css")
+</head>
+<body>
+	@Html.Partial("_Navbar")
+
+	<div class="container">
+		@if (IsSectionDefined("introduction")) {
+			<header>
+				<div class="jumbotron">
+					@RenderSection("introduction", required: false)
+				</div>
+			</header>
+		}
+
+		<div class="col-md-8">
+			@RenderBody()
+		</div>
+
+		@if (IsSectionDefined("featuredHeading") && IsSectionDefined("featuredBody")) {
+			<div class="col-md-4">
+					<aside>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								@RenderSection("featuredHeading", required: false)
+							</div>
+							<div class="panel-body">
+								@RenderSection("featuredBody", required: false)
+							</div>
+						</div>
+					</aside>
+
+			</div>
+		}
+	</div>
+
+	@Html.Partial("_Footer")
+
+	<!-- Javascripts placed at the end of the document so the pages load faster -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+	@RenderSection("scripts", required: false)
+</body>
+</html>

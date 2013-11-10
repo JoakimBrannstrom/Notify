@@ -5,45 +5,57 @@
 @section introduction {
 	<h1>Notifications example</h1>
 	<p>This example is a quick exercise to illustrate how notifications might work.
-	It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+	It uses bootstrap to enable mobile first, responsive design.</p>
 }
 
 @section featuredHeading {
-	<h1 class="panel-title">@ViewBag.Title.</h1>
-	<h2 class="panel-title">@ViewBag.Message</h2>
+	<h2 class="panel-title">XSockets.NET</h2>
 }
 @section featuredBody {
 	<p>
-		To learn more about ASP.NET MVC visit
-		<a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-		The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-		If you have any questions about ASP.NET MVC visit
-		<a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
+		To learn more about XSockets.NET visit
+		<a href="http://xsockets.net/" title="XSockets Website">http://xsockets.net/</a>.
 	</p>
 }
 
-<h3>We suggest the following:</h3>
-<ol class="round">
-    <li class="one">
-        <h5>Getting Started</h5>
-        ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-        enables a clean separation of concerns and that gives you full control over markup
-        for enjoyable, agile development. ASP.NET MVC includes many features that enable
-        fast, TDD-friendly development for creating sophisticated applications that use
-        the latest web standards.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more…</a>
-    </li>
+<div class="col-md-6">
+	<h2>TODO:</h2>
+	<ol class="round">
+		<li>
+			<h3>Add random notifications</h3>
+			Sending random notifications and showing them in the notify-container
+			<a href="@Url.Content("~/Areas/StockTicker/StockTicker.html")">Learn more…</a>
+		</li>
 
-    <li class="two">
-        <h5>Add NuGet packages and jump-start your coding</h5>
-        NuGet makes it easy to install and update free libraries and tools.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
-    </li>
+		<li>
+			<h3>Remove notifications</h3>
+			Remove notifications from the notify-container
+		</li>
 
-    <li class="three">
-        <h5>Find Web Hosting</h5>
-        You can easily find a web hosting company that offers the right mix of features
-        and price for your applications.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
-    </li>
-</ol>
+		<li>
+			<h3>Store notifications</h3>
+			Persist notifications using Raven DB
+		</li>
+
+		<li>
+			<h3>Publish notifications</h3>
+			Publish notifications for other applications
+		</li>
+	</ol>
+</div>
+
+<div class="col-md-6">
+
+	<h2>Done:</h2>
+	<ol>
+		<li>
+			<h3>Create a .net mvc web</h3>
+		</li>
+
+		<li>
+			<h3>Add bootstrap</h3>
+			And some theme...
+			<a href="http://getbootstrap.com">Learn more…</a>
+		</li>
+	</ol>
+</div>

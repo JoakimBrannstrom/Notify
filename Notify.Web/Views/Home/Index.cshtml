@@ -22,30 +22,40 @@
 	<h2>TODO:</h2>
 	<ol class="round">
 		<li>
-			<h3>Add random notifications</h3>
-			Sending random notifications and showing them in the notify-container
-			<a href="@Url.Content("~/Areas/StockTicker/StockTicker.html")">Learn more…</a>
+			<h3>Handle notifications</h3>
+			<p>
+				Start/stop listening. Select which types to listen for.
+				<a href="https://github.com/XSockets/Stockticker">Learn more…</a>
+			</p>
 		</li>
 
 		<li>
 			<h3>Remove notifications</h3>
-			Remove notifications from the notify-container
+			<p>
+				Remove notifications from the notify-container
+			</p>
 		</li>
 
 		<li>
 			<h3>Send notifications via NServiceBus</h3>
-			Publish notifications for other applications using NServiceBus.
-			The web should listen and trigger client(s) via websockets
+			<p>
+				Publish notifications for other applications using NServiceBus.
+				The web should listen and trigger client(s) via websockets
+			</p>
 		</li>
 
 		<li>
 			<h3>Store notifications</h3>
-			Persist notifications using Raven DB
+			<p>
+				Persist notifications using Raven DB
+			</p>
 		</li>
 
 		<li>
 			<h3>Show persisted notifications</h3>
-			Show persisted events on page visit + Incoming, new events via websockets
+			<p>
+				Show persisted events on page visit + Incoming, new events via websockets
+			</p>
 		</li>
 	</ol>
 </div>
@@ -53,15 +63,30 @@
 <div class="col-md-6">
 
 	<h2>Done:</h2>
-	<ol>
+	<ol reversed="reversed">
 		<li>
-			<h3>Create a .net mvc web</h3>
+			<h3>Add random notifications</h3>
+			<p>
+				Sending random notifications and showing them in the notify-container
+				<a href="https://github.com/XSockets/Stockticker">Learn more…</a>
+			</p>
+			<p>
+				Bind them to the DOM with knockout
+				<a href="http://knockoutjs.com/documentation/fn.html">Learn more…</a>
+			</p>
 		</li>
 
 		<li>
 			<h3>Add bootstrap</h3>
-			And some theme...
-			<a href="http://getbootstrap.com">Learn more…</a>
+			<p>
+				And some theme…
+				<br /><a href="http://blog.getbootstrap.com/2013/08/19/bootstrap-3-released/">Release notes</a>
+				<br /><a href="https://github.com/twbs/bootstrap/tree/master/dist/css">Bootstrap on GitHub</a>
+			</p>
+		</li>
+
+		<li>
+			<h3>Create a .net mvc web</h3>
 		</li>
 	</ol>
 </div>

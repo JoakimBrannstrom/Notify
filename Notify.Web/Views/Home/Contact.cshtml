@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+	ViewBag.Title = "Contact";
 }
 
 @section scripts {
@@ -19,11 +19,63 @@
 				webSocket.on('notify', function (notification) {
 					viewModel.Add(notification);
 				});
+
+				// Listen for all types (published at bottom of open event)
+				webSocket.on('allTypes', function (types) {
+					viewModel.AddAllTypes(types);
+				});
+			});
+
+			webSocket.bind(XSockets.Events.onError, function (error) {
+				console.log("XSockets error: ", error);
+			});
+
+			webSocket.bind(XSockets.Events.close, function () {
+				// This event will be fired when server disconnects / closes the current connection
+				console.log("Connection closed.");
 			});
 		});
+		
+		var toggleListening = function () {
+			if (viewModel.Listening()) {
+				viewModel.Listening(false);
+			}
+			else {
+				viewModel.Listening(true);
+			}
+
+			//Tell XSockets about the change
+			//Note that this will update the actual property on the controller without any method decalred being called
+			webSocket.publish('set_Listening', { value: viewModel.Listening() });
+		};
 	</script>
 }
 
+<div class="col-md-4">
+	<div class="dropdown pull-right">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<span class="label" data-bind="css: LabelClass">
+				<span data-bind="text: Notifications().length"></span> new notifications
+			</span>
+		</a>
+
+		<ul class="dropdown-menu" data-bind="foreach: Notifications">
+			<li>
+				<a href="#">
+					<span class="label" data-bind="labelClass: Type">
+						<span data-bind="text: Title"></span>
+						<span data-bind="text: Message"></span>
+						<span data-bind="date: UtcTimestamp"></span>
+					</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div>
+	<button data-bind="click: function () { toggleListening(); }, text: ToggleText">Toggle</button>
+</div>
 <table class="table">
 	<thead>
 		<tr>

@@ -9,6 +9,7 @@
 	};
 
 	ko.bindingHandlers.date = {
+
 		init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 			try {
 				var jsonDate = ko.utils.unwrapObservable(valueAccessor());
@@ -30,20 +31,5 @@
 			var valAcc = valueAccessor;
 			valAcc(element.getAttribute('value'));
 		}
-	};
-	
-	ko.observableArray.fn.visibleCount = function () {
-		var items = this();
-		var count = 0;
-
-		if (typeof items === "undefined" || items === null || typeof items.length === "undefined")
-			return 0;
-
-		for (var i = 0, len = items.length; i < len; i++) {
-			if (items[i]._destroy !== true)
-				count++;
-		}
-
-		return count;
 	};
 });

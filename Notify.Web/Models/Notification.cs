@@ -11,11 +11,11 @@ namespace Notify.Web.Models
 
 		public static readonly string[] AllTypes =	{
 														"Default",
-														"Inverse",
+														"Primary",
 														"Success",
 														"Info",
 														"Warning",
-														"Important"
+														"Danger"
 													};
 	}
 }

@@ -8,27 +8,15 @@ namespace Notify.Web.Controllers
 {
 	public class NotificationController : XSocketController
 	{
-		private bool _listening;
-		private List<string> _notificationTypes;
-
 		// We have state :) Each user can listen to specific types of choice
-		public List<string> NotificationTypes
-		{
-			get { return _notificationTypes; }
-			set { _notificationTypes = value; }
-		}
-
-		public bool Listening
-		{
-			get { return _listening; }
-			set { _listening = value; }
-		}
+		public bool Listening { get; set; }
+		public List<string> NotificationTypes { get; set; }
 
 		public NotificationController()
 		{
 			// By default, listen to all types
-			NotificationTypes = Notification.AllTypes.ToList();
 			Listening = true;
+			NotificationTypes = Notification.AllTypes.ToList();
 
 			OnOpen += Client_OnOpen;
 		}

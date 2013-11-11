@@ -31,7 +31,7 @@ var NotificationViewModel = function (maxLength) {
 
 		var max = this.maxTypeLevel();
 		if (self.LabelClass.peek() !== 'label-' + max)
-			self.LabelClass = 'label-' + max;
+			self.LabelClass('label-' + max.toLowerCase());
 	};
 
 	self.AddAllTypes = function (types) {
@@ -42,7 +42,7 @@ var NotificationViewModel = function (maxLength) {
 
 	// get a list of used categories
 	self.existingTypes = function () {
-		var types = ko.utils.arrayMap(self.Notifications, function (item) {
+		var types = ko.utils.arrayMap(self.Notifications(), function (item) {
 			return item.Type;
 		});
 		return types.sort();
@@ -54,8 +54,8 @@ var NotificationViewModel = function (maxLength) {
 
 	self.maxTypeLevel = function () {
 		var types = self.uniqueTypes();
-		var registredTypes = self.Types.reverse();
-		for (var i = 0; i < registredTypes.length; i++) {
+		var registredTypes = self.Types();
+		for (var i = registredTypes.length-1; i > 0; i--) {
 			if (types.indexOf(registredTypes[i]) !== -1)
 				return registredTypes[i];
 		}

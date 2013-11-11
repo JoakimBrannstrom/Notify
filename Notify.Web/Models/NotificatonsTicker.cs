@@ -7,11 +7,12 @@ namespace Notify.Web.Models
 	public class NotificatonsTicker
 	{
 		private static int _counter;
+		readonly Random _randomGenerator = new Random();
 		private readonly object _updateNotificationsLock = new object();
 
 		private readonly Action<Notification> _onTick;
 
-		public NotificatonsTicker(Action<Notification> onTick, int updateInterval = 2500)
+		public NotificatonsTicker(Action<Notification> onTick, int updateInterval = 250)
 		{
 			_onTick = onTick;
 
@@ -27,8 +28,7 @@ namespace Notify.Web.Models
 			{
 				_counter++;
 
-				var r = new Random();
-				var typeIndex = r.Next(0, Notification.AllTypes.Count() - 1);
+				var typeIndex = _randomGenerator.Next(Notification.AllTypes.Count());
 
 				var notification = new Notification
 				{

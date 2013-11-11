@@ -9,7 +9,6 @@
 	};
 
 	ko.bindingHandlers.date = {
-
 		init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 			try {
 				var jsonDate = ko.utils.unwrapObservable(valueAccessor());

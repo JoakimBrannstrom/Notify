@@ -15,3 +15,8 @@
 .jumbotron p {
 	margin: 0;
 }
+
+.container .title,
+.container article {
+	margin-bottom: 0.5em;
+}

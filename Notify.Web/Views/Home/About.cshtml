@@ -1,25 +1,21 @@
 ﻿@{
-    ViewBag.Title = "About";
-}
-
-@section featuredHeading {
-	<h3>Aside Title</h3>
-}
-
-@section featuredBody {
-	<p>Use this area to provide additional information.</p>
-	<ul>
-		<li>@Html.ActionLink("Home", "Index", "Home")</li>
-		<li>@Html.ActionLink("About", "About", "Home")</li>
-		<li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-	</ul>
+    ViewBag.Title = "What is it all about then?";
+	ViewBag.Message = "Well, it's some kind of learning playground";
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ViewBag.Title</h1>
     <h2>@ViewBag.Message</h2>
 </hgroup>
 
 <article>
-	<p>Use this area to provide additional information.</p>
+	<div>
+		Where I've looked into
+		<ul>
+			<li>WebSockets/XSocket</li>
+			<li>knockout.js</li>
+			<li>bootstrap 3</li>
+		</ul>
+
+	</div>
 </article>

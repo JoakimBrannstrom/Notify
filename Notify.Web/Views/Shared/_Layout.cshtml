@@ -36,11 +36,14 @@
 			</header>
 		}
 
-		<div class="col-md-8">
+		@{
+			var haveFeatureInfo = IsSectionDefined("featuredHeading") && IsSectionDefined("featuredBody");
+		}
+		<div class="@(haveFeatureInfo ? "col-md-8": "col-md-12")">
 			@RenderBody()
 		</div>
 
-		@if (IsSectionDefined("featuredHeading") && IsSectionDefined("featuredBody")) {
+		@if (haveFeatureInfo) {
 			<div class="col-md-4">
 					<aside>
 						<div class="panel panel-default">

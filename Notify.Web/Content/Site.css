@@ -20,3 +20,8 @@
 .container article {
 	margin-bottom: 0.5em;
 }
+
+.selected-types,
+.selected-types li {
+	display: inline-block;
+}

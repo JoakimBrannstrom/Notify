@@ -6,7 +6,7 @@ namespace Notify.Web.Models
 {
 	public class NotificatonsTicker
 	{
-		private static int _counter;
+		private static uint _counter;
 		readonly Random _randomGenerator = new Random();
 		private readonly object _updateNotificationsLock = new object();
 
@@ -39,6 +39,8 @@ namespace Notify.Web.Models
 				};
 
 				_onTick.Invoke(notification);
+				if (_counter == uint.MaxValue)
+					_counter = 0;
 			}
 		}
 	}

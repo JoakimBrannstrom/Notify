@@ -1,11 +1,18 @@
 ﻿// KnockoutJS ViewModel
 var NotificationItem = function (notification) {
-	this.Title = notification.Title;
-	this.Message = notification.Message;
-	this.Type = notification.Type;
-	this.UtcTimestamp = notification.UtcTimestamp;
+	var self = this;
+	self.Title = notification.Title;
+	self.Message = notification.Message;
+	self.Type = notification.Type;
+	self.UtcTimestamp = notification.UtcTimestamp;
 
-	this.LabelClass = 'label-' + notification.Type.toLowerCase();
+	self.LabelClass = 'label-' + notification.Type.toLowerCase();
+};
+
+var SelectionItem = function (value, selected) {
+	var self = this;
+	self.Value = ko.observable(value);
+	self.Selected = ko.observable(selected);
 };
 
 var NotificationViewModel = function (maxLength) {
@@ -13,30 +20,32 @@ var NotificationViewModel = function (maxLength) {
 	maxLength = typeof maxLength !== 'undefined' ? maxLength : 5;	// default value
 
 	self.Notifications = ko.observableArray([]);
-	self.Types = ko.observableArray([]);
+	self.AllTypes = ko.observableArray([]);
+	self.SelectedTypes = ko.observableArray([]);
 	self.LabelClass = ko.observable('label-default');
 	self.Listening = ko.observable(true);
-	this.ToggleText = ko.computed(function () {
+	self.ToggleText = ko.computed(function () {
 		if (self.Listening())
 			return "On";
 		return "Off";
 	}, this);
 
 	self.Add = function (notification) {
-		this.Notifications.push(new NotificationItem(notification));
+		self.Notifications.push(new NotificationItem(notification));
 
-		if (this.Notifications().length > maxLength) {
-			this.Notifications.splice(0, 1); // remove the oldest event
+		if (self.Notifications().length > maxLength) {
+			self.Notifications.splice(0, 1); // remove the oldest event
 		}
 
-		var max = this.maxTypeLevel();
+		var max = self.maxTypeLevel();
 		if (self.LabelClass.peek() !== 'label-' + max)
 			self.LabelClass('label-' + max.toLowerCase());
 	};
 
 	self.AddAllTypes = function (types) {
 		types.forEach(function (type) {
-			self.Types.push(type);
+			self.AllTypes.push(type);
+			self.SelectedTypes.push(new SelectionItem(type, true));
 		});
 	};
 
@@ -54,7 +63,7 @@ var NotificationViewModel = function (maxLength) {
 
 	self.maxTypeLevel = function () {
 		var types = self.uniqueTypes();
-		var registredTypes = self.Types();
+		var registredTypes = self.AllTypes();
 		for (var i = registredTypes.length-1; i > 0; i--) {
 			if (types.indexOf(registredTypes[i]) !== -1)
 				return registredTypes[i];

@@ -10,13 +10,14 @@ namespace Notify.Web.Controllers
 	{
 		// We have state :) Each user can listen to specific types of choice
 		public bool Listening { get; set; }
-		public List<string> NotificationTypes { get; set; }
+
+		public List<string> SelectedTypes { get; set; }
 
 		public NotificationController()
 		{
 			// By default, listen to all types
 			Listening = true;
-			NotificationTypes = Notification.AllTypes.ToList();
+			SelectedTypes = Notification.AllTypes.ToList();
 
 			OnOpen += Client_OnOpen;
 		}
@@ -34,7 +35,7 @@ namespace Notify.Web.Controllers
 		public void Notify(Notification notification)
 		{
 			// Send only to clients that is listening to this type
-			this.SendTo(client => client.Listening && client.NotificationTypes.Contains(notification.Type), notification, "notify");
+			this.SendTo(client => client.Listening && client.SelectedTypes.Contains(notification.Type), notification, "notify");
 		}
 	}
 }

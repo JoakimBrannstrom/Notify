@@ -48,6 +48,30 @@
 			//Note that this will update the actual property on the controller without any method decalred being called
 			webSocket.publish('set_Listening', { value: viewModel.Listening() });
 		};
+
+		toggleSelection = function (item) {
+			var selected = item.Selected();
+			var value = item.Value();
+
+			if (selected === true)
+				console.log("Selecting '" + value + "'");
+			else
+				console.log("Deselecting '" + value + "'");
+
+			ko.utils.arrayMap(viewModel.SelectedTypes(), function (type) {
+				if (type.Value() === value)
+					type.Selected(item.Selected());
+			});
+			
+			var selectedTypes = ko.utils.arrayMap(ko.utils.arrayFilter(viewModel.SelectedTypes(), function (type) {
+				return type.Selected() === true;
+			}), function (type) {
+				return type.Value();
+			});
+
+			webSocket.publish('set_SelectedTypes', selectedTypes);
+			return true;
+		};
 	</script>
 }
 
@@ -75,7 +99,15 @@
 
 <div>
 	<button data-bind="click: function () { toggleListening(); }, text: ToggleText">Toggle</button>
+	<ul class="selected-types" data-bind="foreach: SelectedTypes">
+		<li>
+			<input name="selectedTypes" type="checkbox" 
+				data-bind="value: Value, checked: Selected, attr: { 'id': 'type_' + Value() }, click: toggleSelection" />
+			<label data-bind="text: Value, attr: { 'for': 'type_' + Value() }"></label>
+		</li>
+	</ul>
 </div>
+
 <table class="table">
 	<thead>
 		<tr>

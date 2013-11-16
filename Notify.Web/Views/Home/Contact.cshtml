@@ -83,15 +83,17 @@
 			</span>
 		</a>
 
-		<ul class="dropdown-menu" data-bind="foreach: Notifications">
+		<ul class="notifications dropdown-menu" data-bind="foreach: Notifications">
 			<li>
-				<a href="#">
-					<span class="label" data-bind="css: LabelClass">
+				<div class="label" data-bind="css: LabelClass">
+					<a class="summary" href="#">
 						<span data-bind="text: Title"></span>
 						<span data-bind="text: Message"></span>
 						<span data-bind="date: UtcTimestamp"></span>
-					</span>
-				</a>
+					</a>
+					
+					<input type="button" class="ok" value="Mark as read" />
+				</div>
 			</li>
 		</ul>
 	</div>

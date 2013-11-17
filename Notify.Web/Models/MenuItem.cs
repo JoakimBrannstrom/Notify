@@ -1,4 +1,6 @@
-﻿namespace Notify.Web.Models
+﻿using System;
+
+namespace Notify.Web.Models
 {
 	public class MenuItem
 	{
@@ -15,11 +17,13 @@
 			if (string.IsNullOrEmpty(Controller) || string.IsNullOrEmpty(Action))
 				return false;
 
-			if(Controller.ToLowerInvariant() == controller.ToLowerInvariant())
-				if (Action.ToLowerInvariant() == action.ToLowerInvariant())
-					return true;
+			if (!string.Equals(Controller, controller, StringComparison.InvariantCultureIgnoreCase))
+				return false;
 
-			return false;
+			if (!string.Equals(Action, action, StringComparison.InvariantCultureIgnoreCase))
+				return false;
+
+			return true;
 		}
 	}
 }

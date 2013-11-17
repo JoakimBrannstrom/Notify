@@ -248,7 +248,9 @@ video {
 
 audio {
 	display: none;
+	/* ReSharper disable InvalidValue */
 	_display: expression(this.controls ? 'inline' : 'none');
+	/* ReSharper restore InvalidValue */
 	*zoom: 1;
 }
 

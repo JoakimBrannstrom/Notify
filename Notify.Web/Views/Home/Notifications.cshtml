@@ -1,20 +1,21 @@
 ﻿@{
-	ViewBag.Title = "Contact";
+	ViewBag.Title = "Notifications";
+	ViewBag.ContainerClass = "notifications";
 }
 
 @section scripts {
 	@Scripts.Render("~/scripts/notifications")
 }
 
-<div class="col-md-4">
-	<div class="dropdown pull-right">
+<div class="col-md-3">
+	<div class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			<span class="label" data-bind="css: LabelClass">
 				<span data-bind="text: Notifications().length"></span> new notifications
 			</span>
 		</a>
 
-		<ul class="notifications dropdown-menu" data-bind="foreach: Notifications">
+		<ul class="dropdown-menu" data-bind="foreach: Notifications">
 			<li>
 				<div class="label" data-bind="css: LabelClass">
 					<a class="summary" href="#">
@@ -28,14 +29,15 @@
 			</li>
 		</ul>
 	</div>
+
+	<button data-bind="click: function () { toggleListening(); }, text: ToggleText">Toggle</button>
 </div>
 
-<div>
-	<button data-bind="click: function () { toggleListening(); }, text: ToggleText">Toggle</button>
-	<ul class="selected-types" data-bind="foreach: SelectedTypes">
+<div class="selected-types col-md-9">
+	<ul data-bind="foreach: SelectedTypes">
 		<li>
 			<input name="selectedTypes" type="checkbox" 
-				data-bind="value: Value, checked: Selected, attr: { 'id': 'type_' + Value() }, click: toggleSelection" />
+				    data-bind="value: Value, checked: Selected, attr: { 'id': 'type_' + Value() }, click: toggleSelection" />
 			<label data-bind="text: Value, attr: { 'for': 'type_' + Value() }"></label>
 		</li>
 	</ul>

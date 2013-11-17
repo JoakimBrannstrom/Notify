@@ -40,7 +40,7 @@ namespace Notify.Web.Tests.Controllers
 			var controller = new HomeController();
 
 			// Act
-			var result = controller.Contact() as ViewResult;
+			var result = controller.Notifications() as ViewResult;
 
 			// Assert
 			Assert.IsNotNull(result);

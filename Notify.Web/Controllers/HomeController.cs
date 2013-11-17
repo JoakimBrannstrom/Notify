@@ -14,7 +14,7 @@ namespace Notify.Web.Controllers
 			return View();
 		}
 
-		public ActionResult Contact()
+		public ActionResult Notifications()
 		{
 			return View();
 		}

@@ -27,7 +27,7 @@
 <body>
 	@Html.Partial("_Navbar")
 
-	<div class="container">
+	<div class="container @ViewBag.ContainerClass">
 		@if (IsSectionDefined("introduction")) {
 			<header>
 				<div class="jumbotron">

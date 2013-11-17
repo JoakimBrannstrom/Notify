@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Notify.Web.Models;
+using XSockets.Core.Common.Socket.Event.Attributes;
 using XSockets.Core.XSocket;
 using XSockets.Core.XSocket.Helpers;
 
@@ -36,6 +38,12 @@ namespace Notify.Web.Controllers
 		{
 			// Send only to clients that is listening to this type
 			this.SendTo(client => client.Listening && client.SelectedTypes.Contains(notification.Type), notification, "notify");
+		}
+
+		[HandlerEvent("MarkAsRead")]
+		public void MarkAsRead(Guid id, bool value)
+		{
+			// Since the notifications aren't persisted yet, we have nothing to do...
 		}
 	}
 }

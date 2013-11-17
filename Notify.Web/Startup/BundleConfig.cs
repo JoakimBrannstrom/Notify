@@ -18,7 +18,8 @@ namespace Notify.Web.Startup
 								"~/scripts/XSockets.latest.js",
 								"~/scripts/knockout-2.2.0.js",
 								"~/scripts/knockout.extensions.js",
-								"~/scripts/notifications.js"));
+								"~/scripts/notifications.js",
+								"~/scripts/contact.js"));
 
 			// BundleTable.EnableOptimizations = true;
 		}

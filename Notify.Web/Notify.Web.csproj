@@ -174,10 +174,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\check-icon.png" />
+    <Content Include="Content\Images\check-icon2.png" />
+    <Content Include="Content\Images\ok-icon.png" />
     <Content Include="Content\Menu.css" />
     <Content Include="Content\normalize.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\Notifications.js" />
     <Content Include="Scripts\XSockets.fallback.latest.js" />

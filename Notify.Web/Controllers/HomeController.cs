@@ -14,7 +14,12 @@ namespace Notify.Web.Controllers
 			return View();
 		}
 
-		public ActionResult Notifications()
+		public ActionResult KnockoutNotifications()
+		{
+			return View();
+		}
+
+		public ActionResult AngularNotifications()
 		{
 			return View();
 		}

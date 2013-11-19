@@ -1,0 +1,72 @@
+﻿@{
+	ViewBag.Title = "Angular Notifications";
+	ViewBag.ContainerClass = "notifications";
+
+	ViewBag.AngularApp = "notificationApp";
+}
+
+@section scripts {
+	@Scripts.Render("~/scripts/angular/notifications")
+	
+}
+
+<div class="col-md-3" ng-controller="NotificationController">
+	<div class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<span class="label {{LabelClass}}">
+				<span>{{Notifications.length}}</span> new notifications
+			</span>
+		</a>
+
+		<ul class="dropdown-menu">
+			<li ng-repeat="notification in Notifications">
+				<div class="label {{notification.LabelClass}}">
+					<a class="summary" href="#">
+						<span>{{notification.Title}}</span>
+						<span>{{notification.Message}}</span>
+						<span>{{notification.UtcTimestamp}}</span>
+					</a>
+
+					<input type="button" class="ok" value="Mark as read" ng-model="notification.Read" ng-click="markAsRead(notification)" />
+					<!-- data-bind="clickBubble: false" -->
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<button ng-click="toggleListening()">{{ToggleText}}</button>
+</div>
+
+<div class="selected-types col-md-9" ng-controller="NotificationController">
+	<ul>
+		<li ng-repeat="type in SelectedTypes">
+			<!--
+			<input name="selectedTypes" type="checkbox" ng-model="SelectedTypes[$index].Selected"
+			       ng-true-value="true" ng-false-value="false" id="type_{{$index+1}}" />
+			<label for="type_{{$index+1}}" ng-click="toggleSelection(type, false)">{{SelectedTypes[$index].Value}}</label>
+			-->
+			<input name="selectedTypes" type="checkbox" id="type_{{$index+1}}" 
+				    value="{{type.Value}}" checked="{{type.Selected}}" ng-click="toggleSelection(type)" />
+			<label for="type_{{$index+1}}">{{type.Value}}</label>
+		</li>
+	</ul>
+</div>
+
+<table class="table" ng-controller="NotificationController">
+	<thead>
+		<tr>
+			<th>Type</th>
+			<th>Title</th>
+			<th>Message</th>
+			<th>UtcTimestamp</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="notification in Notifications">
+			<td>{{notification.Type}}</td>
+			<td>{{notification.Title}}</td>
+			<td>{{notification.Message}}</td>
+			<td>{{notification.UtcTimestamp | date:dateFormat}}</td>
+		</tr>
+	</tbody>
+</table>

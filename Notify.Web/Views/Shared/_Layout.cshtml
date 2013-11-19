@@ -38,8 +38,9 @@
 
 		@{
 			var haveFeatureInfo = IsSectionDefined("featuredHeading") && IsSectionDefined("featuredBody");
+			var angularApp = string.IsNullOrEmpty(ViewBag.AngularApp) ? "" : string.Format("ng-app=\"{0}\"", ViewBag.AngularApp);
 		}
-		<div class="@(haveFeatureInfo ? "col-md-8": "col-md-12")">
+		<div class="@(haveFeatureInfo ? "col-md-8": "col-md-12")" @(new MvcHtmlString(angularApp))>
 			@RenderBody()
 		</div>
 

@@ -181,9 +181,12 @@
     <Content Include="Content\normalize.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\contact.js" />
+    <Content Include="Scripts\angular\angular.1.2.1.js" />
+    <Content Include="Scripts\angular\contact.js" />
+    <Content Include="Scripts\angular\Notifications.js" />
+    <Content Include="Scripts\knockout\contact.js" />
     <Content Include="Scripts\json2.js" />
-    <Content Include="Scripts\Notifications.js" />
+    <Content Include="Scripts\knockout\Notifications.js" />
     <Content Include="Scripts\XSockets.fallback.latest.js" />
     <Content Include="Scripts\XSockets.fallback.latest.min.js" />
     <Content Include="Scripts\XSockets.latest.js" />
@@ -201,8 +204,8 @@
     <Content Include="CodeTemplates\Scaffolders\XSocketController\XSocketController.ps1" />
     <Content Include="CodeTemplates\Scaffolders\XSocketController\XSocketBasicControllerTemplate.vb.t4" />
     <Content Include="CodeTemplates\Scaffolders\XSocketController\XSocketBasicControllerTemplate.cs.t4" />
-    <Content Include="Scripts\knockout-2.2.0.debug.js" />
-    <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\knockout\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout\knockout-2.2.0.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -216,7 +219,7 @@
     <Content Include="Content\Images\heroAccent.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Notifications.cshtml" />
+    <Content Include="Views\Home\KnockoutNotifications.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -234,7 +237,13 @@
     <Content Include="Views\Shared\DisplayTemplates\MenuItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\knockout.extensions.js" />
+    <Content Include="Scripts\knockout\knockout.extensions.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\AngularNotifications.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\angular\angular.xsockets.js" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

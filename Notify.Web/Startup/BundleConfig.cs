@@ -13,13 +13,22 @@ namespace Notify.Web.Startup
 								"~/content/menu.css"));
 
 			bundles
-			.Add(new ScriptBundle("~/scripts/notifications")
-						.Include("~/scripts/XSockets.fallback.latest.js",
-								"~/scripts/XSockets.latest.js",
-								"~/scripts/knockout-2.2.0.js",
-								"~/scripts/knockout.extensions.js",
-								"~/scripts/notifications.js",
-								"~/scripts/contact.js"));
+				.Add(new ScriptBundle("~/scripts/knockout/notifications")
+							.Include("~/scripts/XSockets.fallback.latest.js",
+									"~/scripts/XSockets.latest.js",
+									"~/scripts/knockout/knockout-2.2.0.js",
+									"~/scripts/knockout/knockout.extensions.js",
+									"~/scripts/knockout/notifications.js",
+									"~/scripts/knockout/contact.js"));
+
+			bundles
+				.Add(new ScriptBundle("~/scripts/angular/notifications")
+							.Include("~/scripts/XSockets.fallback.latest.js",
+									"~/scripts/XSockets.latest.js",
+									"~/scripts/angular/angular.1.2.1.js",
+									"~/scripts/angular/angular.xsockets.js",
+									"~/scripts/angular/notifications.js",
+									"~/scripts/angular/contact.js"));
 
 			// BundleTable.EnableOptimizations = true;
 		}

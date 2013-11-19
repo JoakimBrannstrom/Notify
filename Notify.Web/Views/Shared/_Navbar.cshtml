@@ -21,7 +21,8 @@
 				{
 					new MenuItem { Name = "Start", Controller = "home", Action = "index" },
 					new MenuItem { Name = "About", Controller = "home", Action = "about" },
-					new MenuItem { Name = "Notifications", Controller = "home", Action = "notifications" }
+					new MenuItem { Name = "Knockout Notifications", Controller = "home", Action = "knockoutnotifications" },
+					new MenuItem { Name = "Angular Notifications", Controller = "home", Action = "angularnotifications" }
 				};
 				var selectedItems = menuItems.Where(i => i.Match(controller, action));
 				selectedItems.ForEach(i => i.Active = true);

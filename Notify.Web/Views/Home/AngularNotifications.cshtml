@@ -26,7 +26,7 @@
 						<span>{{notification.UtcTimestamp}}</span>
 					</a>
 
-					<input type="button" class="ok" value="Mark as read" ng-model="notification.Read" ng-click="markAsRead(notification)" />
+					<input type="button" class="ok" value="Mark as read" ng-model="notification.Read" ng-click="markAsRead($event, notification)" />
 					<!-- data-bind="clickBubble: false" -->
 				</div>
 			</li>

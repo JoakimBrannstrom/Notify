@@ -59,10 +59,11 @@ var NotificationController = function ($scope, webSocket, maxLength) {
 
 		if ($scope.Listening)
 			$scope.ToggleText = "On";
-		$scope.ToggleText = "Off";
+		else
+			$scope.ToggleText = "Off";
 	};
 
-	$scope.markAsRead = function (notification) {
+	$scope.markAsRead = function (event, notification) {
 		notification.Read = !notification.Read;
 
 		// Tell XSockets about the change
@@ -70,6 +71,8 @@ var NotificationController = function ($scope, webSocket, maxLength) {
 		webSocket.trigger('MarkAsRead', json);
 
 		$scope.Remove(notification);
+
+		event.stopPropagation();
 	};
 
 	$scope.toggleSelection = function (item) {
@@ -116,11 +119,11 @@ var NotificationController = function ($scope, webSocket, maxLength) {
 	};
 	
 	$scope.Remove = function (notification) {
-		// $scope.Notifications.remove(function (item) { return item.Id === notification.Id });
-		$scope.Notifications.remove(notification);	// <-- TODO!
+		$scope.Notifications = $scope
+								.Notifications
+								.filter(function (item) { return !(item.Id === notification.Id); });
 
 		$scope.updateMaxTypeLevel();
-		$scope.$apply();
 	};
 
 	$scope.updateMaxTypeLevel = function () {

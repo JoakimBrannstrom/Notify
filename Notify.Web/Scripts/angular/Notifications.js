@@ -27,9 +27,8 @@ var SelectionItem = function (value, selected) {
 	self.Selected = selected;
 };
 
-var NotificationController = function ($scope) {
-	var xsocket = $scope.webSocket;
-	var maxLength = typeof $scope.maxLength !== 'undefined' ? $scope.maxLength : 5;	// default value
+var NotificationController = function ($scope, webSocket, maxLength) {
+	maxLength = typeof maxLength !== 'undefined' ? maxLength : 5;	// default value
 
 	$scope.dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
@@ -41,13 +40,13 @@ var NotificationController = function ($scope) {
 	$scope.ToggleText = 'On';
 
 	// When a notification arrives, add it to the array
-	xsocket.on('notify', function (notification) {
+	webSocket.on('notify', function (notification) {
 		$scope.Add(notification);
 		$scope.$apply();
 	});
 
 	// Listen for all types (published at bottom of open event)
-	xsocket.on('allTypes', function (types) {
+	webSocket.on('allTypes', function (types) {
 		$scope.AddAllTypes(types);
 	});
 
@@ -55,8 +54,8 @@ var NotificationController = function ($scope) {
 		$scope.Listening = !$scope.Listening;
 
 		// Tell XSockets about the change
-		// Note that this will update the actual property on the controller without any method decalred being called
-		xsocket.publish('set_Listening', { value: $scope.Listening });
+		// Note that this will update the actual property on the controller without any method declared being called
+		webSocket.publish('set_Listening', { value: $scope.Listening });
 
 		if ($scope.Listening)
 			$scope.ToggleText = "On";
@@ -68,7 +67,7 @@ var NotificationController = function ($scope) {
 
 		// Tell XSockets about the change
 		var json = { id: notification.Id, value: notification.Read };
-		xsocket.trigger('MarkAsRead', json);
+		webSocket.trigger('MarkAsRead', json);
 
 		$scope.Remove(notification);
 	};
@@ -95,7 +94,7 @@ var NotificationController = function ($scope) {
 							.map(function (type) { return type.Value; });
 
 		// Tell XSockets about the change
-		xsocket.publish('set_SelectedTypes', selectedTypes);
+		webSocket.publish('set_SelectedTypes', selectedTypes);
 	};
 
 	$scope.AddAllTypes = function (types) {

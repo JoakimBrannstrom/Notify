@@ -4,8 +4,7 @@
 }
 
 @section scripts {
-	// @Scripts.Render("~/scripts/knockout/notifications")
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+	@Scripts.Render("~/scripts/knockout/notifications")
 }
 
 <div class="col-md-3">
@@ -25,7 +24,7 @@
 						<span data-bind="date: UtcTimestamp"></span>
 					</a>
 					
-					<input type="button" class="ok" value="Mark as read" data-bind="click: markAsRead, clickBubble: false" />
+					<input type="button" class="ok" value="Mark as read" data-bind="click: $parent.markAsRead, clickBubble: false" />
 				</div>
 			</li>
 		</ul>
@@ -38,7 +37,7 @@
 	<ul data-bind="foreach: SelectedTypes">
 		<li>
 			<input name="selectedTypes" type="checkbox" 
-				    data-bind="value: Value, checked: Selected, attr: { 'id': 'type_' + Value() }, click: toggleSelection" />
+				    data-bind="value: Value, checked: Selected, attr: { 'id': 'type_' + Value() }, click: $parent.toggleSelection" />
 			<label data-bind="text: Value, attr: { 'for': 'type_' + Value() }"></label>
 		</li>
 	</ul>

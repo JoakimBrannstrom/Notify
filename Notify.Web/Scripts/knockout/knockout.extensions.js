@@ -9,12 +9,28 @@
 	};
 
 	ko.bindingHandlers.date = {
-		init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-			try {
+	init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+		var doubleDigits = function (value) {
+			value = "" + value;
+
+			if (value.length === 1) {
+				value = "0" + value;
+			}
+
+			return value;
+		};
+
+		try {
 				var jsonDate = ko.utils.unwrapObservable(valueAccessor());
 				var dateValue = parseJsonDateString(jsonDate);
-				var strDate = dateValue.getFullYear() + '-' + (dateValue.getMonth() + 1) + '-' + dateValue.getDate();
-				var strTime = dateValue.getHours() + ':' + dateValue.getMinutes() + ':' + dateValue.getSeconds();
+
+				var strDate = doubleDigits(dateValue.getFullYear()) + '-' +
+								doubleDigits(dateValue.getMonth() + 1) + '-' +
+								doubleDigits(dateValue.getDate());
+
+				var strTime = doubleDigits(dateValue.getHours()) + ':' +
+								doubleDigits(dateValue.getMinutes()) + ':' +
+								doubleDigits(dateValue.getSeconds());
 
 				$(element).html(strDate + ' ' + strTime);
 			}

@@ -1,10 +1,8 @@
-﻿var viewModel = null;
-var webSocket = null;
+﻿
+var webSocket = new XSockets.WebSocket('ws://127.0.0.1:4502/Notification');
 
 $(function () {
-	webSocket = new XSockets.WebSocket('ws://127.0.0.1:4502/Notification');
-
-	viewModel = new NotificationViewModel(webSocket, 10);
+	var viewModel = new NotificationViewModel(webSocket, 10);
 
 	ko.applyBindings(viewModel);
 

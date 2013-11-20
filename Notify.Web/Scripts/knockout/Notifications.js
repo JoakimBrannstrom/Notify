@@ -45,11 +45,11 @@ var NotificationViewModel = function (webSocket, maxLength) {
 	});
 
 	self.toggleListening = function () {
-		self.Listening(!viewModel.Listening());
+		self.Listening(!self.Listening());
 
 		// Tell XSockets about the change
 		// Note that this will update the actual property on the controller without any method declared being called
-		webSocket.publish('set_Listening', { value: viewModel.Listening() });
+		webSocket.publish('set_Listening', { value: self.Listening() });
 	};
 
 	self.markAsRead = function (notification) {
@@ -59,7 +59,7 @@ var NotificationViewModel = function (webSocket, maxLength) {
 		var json = { id: notification.Id, value: notification.Read };
 		webSocket.trigger('MarkAsRead', json);
 
-		viewModel.Remove(notification);
+		self.Remove(notification);
 	};
 
 	self.toggleSelection = function (item) {
@@ -71,12 +71,12 @@ var NotificationViewModel = function (webSocket, maxLength) {
 		else
 			console.log("Deselecting '" + value + "'");
 
-		ko.utils.arrayMap(viewModel.SelectedTypes(), function (type) {
+		ko.utils.arrayMap(self.SelectedTypes(), function (type) {
 			if (type.Value() === value)
 				type.Selected(item.Selected());
 		});
 
-		var selectedTypes = ko.utils.arrayMap(ko.utils.arrayFilter(viewModel.SelectedTypes(), function (type) {
+		var selectedTypes = ko.utils.arrayMap(ko.utils.arrayFilter(self.SelectedTypes(), function (type) {
 			return type.Selected() === true;
 		}), function (type) {
 			return type.Value();
@@ -105,7 +105,6 @@ var NotificationViewModel = function (webSocket, maxLength) {
 	};
 	
 	self.Remove = function (notification) {
-		// self.Notifications.remove(function (item) { return item.Id === notification.Id });
 		self.Notifications.remove(notification);
 
 		self.updateMaxTypeLevel();

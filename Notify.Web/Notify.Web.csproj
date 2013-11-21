@@ -191,7 +191,6 @@
     <Content Include="Scripts\angular\angular.1.2.1.js" />
     <Content Include="Scripts\angular\contact.js" />
     <Content Include="Scripts\angular\Notifications.js" />
-    <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\knockout\contact.js" />
     <Content Include="Scripts\knockout\Notifications.js" />
@@ -222,7 +221,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_Navbar.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="XSocketsNET\ServerExample\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\DisplayTemplates\MenuItem.cshtml" />
@@ -286,6 +284,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\XSockets.fallback.latest.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\flatly.bootstrap.css" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

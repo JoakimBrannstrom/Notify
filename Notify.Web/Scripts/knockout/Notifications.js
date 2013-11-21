@@ -33,7 +33,6 @@ var NotificationViewModel = function (webSocket, maxLength) {
 		return "Off";
 	}, this);
 
-
 	// When a notification arrives, add it to the viewModel
 	webSocket.on('notify', function (notification) {
 		self.Add(notification);
@@ -90,7 +89,6 @@ var NotificationViewModel = function (webSocket, maxLength) {
 		webSocket.publish('set_SelectedTypes', selectedTypes);
 		return true;
 	};
-
 
 	self.AddAllTypes = function (types) {
 		types.forEach(function (type) {

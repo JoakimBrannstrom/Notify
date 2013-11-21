@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Notify.Web.Models;
 using XSockets.Core.Common.Socket.Event.Arguments;
@@ -21,6 +21,8 @@ namespace Notify.Web.Controllers
 			Listening = true;
 
 			OnOpen += Client_OnOpen;
+			OnClose += Client_OnClose;
+			OnReopen += OnOnReopen;
 		}
 
 		void Client_OnOpen(object sender, OnClientConnectArgs e)
@@ -29,6 +31,16 @@ namespace Notify.Web.Controllers
 
 			// Send all available notification types to the client when s/he connects. No need to ask for them.
 			this.Send(SelectedTypes, "allTypes");
+		}
+
+		private void Client_OnClose(object sender, OnClientDisconnectArgs e)
+		{
+			Debug.WriteLine("Client closed connection.");
+			Close();
+		}
+
+		private void OnOnReopen(object sender, OnClientConnectArgs onClientConnectArgs)
+		{
 		}
 
 		/// <summary>

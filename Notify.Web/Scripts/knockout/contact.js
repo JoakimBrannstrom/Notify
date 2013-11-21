@@ -1,6 +1,16 @@
 ﻿
 var webSocket = new XSockets.WebSocket('ws://127.0.0.1:4502/Notification');
 
+$().ready(function () {
+	$(window).on('beforeunload', function () {
+		try {
+			webSocket.close(1000, 'Window unload');
+		} catch (e) {
+			console.log(e);
+		}
+	});
+});
+
 $(function () {
 	var viewModel = new NotificationViewModel(webSocket, 10);
 

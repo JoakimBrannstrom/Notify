@@ -2,7 +2,7 @@
 using XSockets.Core.Common.Globals;
 using XSockets.Core.Common.Socket;
 using XSockets.Core.XSocket;
-using XSockets.Plugin.Framework.Core;
+using XSockets.Plugin.Framework;
 
 namespace Notify.Web.Controllers
 {
@@ -12,7 +12,7 @@ namespace Notify.Web.Controllers
 	/// It will work inside the server as a longrunning process...
 	/// Perfect for collecting data or similar and then occationally send info over to other public controllers
 	/// </summary>
-	[XBaseSocketMetadata("EventGeneratorController", Constants.GenericTextBufferSize, PluginRange.Internal)]
+	[XSocketMetadata("EventGeneratorController", Constants.GenericTextBufferSize, PluginRange.Internal)]
 	public class EventGeneratorController : XSocketController
 	{
 		// The controller to send data to when the OnTick event fires

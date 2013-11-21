@@ -9,10 +9,10 @@ Public NotInheritable Class XSocketsBootstrap
 	Private Sub New()
 	End Sub
 
-	Private Shared wss As IXBaseServerContainer
+	Private Shared wss As IXSocketServerContainer
 
 	Public Shared Sub Start()
-		wss = XSockets.Plugin.Framework.Composable.GetExport(Of IXBaseServerContainer)()
+		wss = XSockets.Plugin.Framework.Composable.GetExport(Of IXSocketServerContainer)()
 		wss.StartServers()
 	End Sub
 End Class

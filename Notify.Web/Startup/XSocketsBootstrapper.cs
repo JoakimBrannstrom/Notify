@@ -8,11 +8,11 @@ namespace Notify.Web.Startup
 {
 	public static class XSocketsBootstrapper
 	{
-		private static IXBaseServerContainer _wss;
+		private static IXSocketServerContainer _wss;
 
 		public static void Start()
 		{
-			_wss = XSockets.Plugin.Framework.Composable.GetExport<IXBaseServerContainer>();
+			_wss = XSockets.Plugin.Framework.Composable.GetExport<IXSocketServerContainer>();
 			_wss.StartServers();
 		}
 	}

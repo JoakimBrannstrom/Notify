@@ -45,6 +45,11 @@ var NotificationController = function ($scope, webSocket, maxLength) {
 		$scope.$apply();
 	});
 
+	webSocket.on('markedAsRead', function (id) {
+		$scope.Remove(id);
+		$scope.$apply();
+	});
+
 	// Listen for all types (published at bottom of open event)
 	webSocket.on('allTypes', function (types) {
 		$scope.AddAllTypes(types);
@@ -69,8 +74,6 @@ var NotificationController = function ($scope, webSocket, maxLength) {
 		// Tell XSockets about the change
 		var json = { id: notification.Id, value: notification.Read };
 		webSocket.trigger('MarkAsRead', json);
-
-		$scope.Remove(notification);
 
 		event.stopPropagation();
 	};
@@ -118,10 +121,10 @@ var NotificationController = function ($scope, webSocket, maxLength) {
 		$scope.$apply();
 	};
 	
-	$scope.Remove = function (notification) {
+	$scope.Remove = function (id) {
 		$scope.Notifications = $scope
 								.Notifications
-								.filter(function (item) { return !(item.Id === notification.Id); });
+								.filter(function (item) { return !(item.Id === id); });
 
 		$scope.updateMaxTypeLevel();
 	};

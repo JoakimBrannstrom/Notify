@@ -33,7 +33,6 @@
 if ("WebSocket" in window === false) {
     window.WebSocket = function (url, subprotocol) {
         var self = this;
-
         $(window).bind('beforeunload', function () {
             self.close();
         });
@@ -63,20 +62,17 @@ if ("WebSocket" in window === false) {
             };
         };
         this.readystate = 0;
+       
         this.ajax("/Fallback/Init", "GET", {
             url: self.handler,
             storageGuid: window.localStorage.getItem("XSocketsClientStorageGuid" + subprotocol)
         }, true, function (msg) {
-            
             var args = JSON.parse(msg.data);
             self.client.ClientGuid = args.ClientGuid;
             self.client.StorageGuid = args.StorageGuid;
             self.readyState = 1;
             self.onmessage(new self.MessageEvent(msg));
-
-
             window.localStorage.setItem("XSocketsClientStorageGuid" + subprotocol, args.StorageGuid);
-            
             self.listen();
         });
         return this;
@@ -91,13 +87,13 @@ if ("WebSocket" in window === false) {
     window.WebSocket.prototype.send = function (data) {
         
         var msg = JSON.parse(data);
-        if (msg.event == "xsockets.xnode.open") return;
-        if (msg.event == "xsockets.unsubscribe") {
+        if (msg.event == XSockets.Events.open) return;
+        if (msg.event == XSockets.Events.pubSub.unsubscribe) {
             this.ajax("/Fallback/Unbind", "GET", {
                 client: this.client.ClientGuid,
                 event: JSON.parse(msg.data).Event
             }, true, function () { });
-        } else if (msg.event == "xsockets.subscribe") {
+        } else if (msg.event == XSockets.Events.pubSub.subscribe) {
             this.ajax("/Fallback/Bind", "GET", {
                 client: this.client.ClientGuid,
                 event: JSON.parse(msg.data).Event

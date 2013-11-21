@@ -12,7 +12,7 @@ namespace Notify.Web.Models
 
 		private readonly Action<Notification> _onTick;
 
-		public NotificatonsTicker(Action<Notification> onTick, int updateInterval = 100)
+		public NotificatonsTicker(Action<Notification> onTick, int updateInterval = 1000)
 		{
 			_onTick = onTick;
 

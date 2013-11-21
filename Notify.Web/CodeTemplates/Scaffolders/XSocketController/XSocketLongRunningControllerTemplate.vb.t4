@@ -1,11 +1,11 @@
 ﻿<#@ Template Language="VB" HostSpecific="True" Inherits="DynamicTransform" #>
 <#@ Output Extension="vb" #>
-Imports XSockets.Plugin.Framework.Core
+Imports XSockets.Plugin.Framework
 Imports XSockets.Core.Common.Socket
 Imports XSockets.Core.XSocket
 Imports XSockets.Core.XSocket.Helpers
 
-<XBaseSocketMetadata("<#= Model.HandlerName #>", XSockets.Core.Common.Globals.Constants.GenericTextBufferSize, PluginRange.Internal)> _
+<XSocketMetadata("<#= Model.HandlerName #>", XSockets.Core.Common.Globals.Constants.GenericTextBufferSize, PluginRange.Internal)> _
 Public Class <#= Model.HandlerName #>
 	Inherits XSocketController
 	Shared Sub New()

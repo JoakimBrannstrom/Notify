@@ -23,7 +23,7 @@
 					<a class="summary" href="#">
 						<span>{{notification.Title}}</span>
 						<span>{{notification.Message}}</span>
-						<span>{{notification.UtcTimestamp}}</span>
+						<span>{{notification.UtcTimestamp | date:dateFormat}}</span>
 					</a>
 
 					<input type="button" class="ok" value="Mark as read" ng-model="notification.Read" ng-click="markAsRead($event, notification)" />

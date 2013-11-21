@@ -39,6 +39,10 @@ var NotificationViewModel = function (webSocket, maxLength) {
 		self.Add(notification);
 	});
 
+	webSocket.on('markedAsRead', function (id) {
+		self.Remove(id);
+	});
+
 	// Listen for all types (published at bottom of open event)
 	webSocket.on('allTypes', function (types) {
 		self.AddAllTypes(types);
@@ -103,9 +107,9 @@ var NotificationViewModel = function (webSocket, maxLength) {
 
 		self.updateMaxTypeLevel();
 	};
-	
-	self.Remove = function (notification) {
-		self.Notifications.remove(notification);
+
+	self.Remove = function (id) {
+		self.Notifications.remove(function (item) { return item.Id === id; });
 
 		self.updateMaxTypeLevel();
 	};
